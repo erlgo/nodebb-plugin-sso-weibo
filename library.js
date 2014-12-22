@@ -21,12 +21,13 @@
 
     Weibo.getStrategy = function(strategies, callback) {
         if (meta.config['social:weibo:id'] && meta.config['social:weibo:secret']) {
+          console.log(meta.config['social:weibo:id'] , meta.config['social:weibo:secret'])
             passport.use(new passportWeibo({
                 clientID: meta.config['social:weibo:id'],
                 clientSecret: meta.config['social:weibo:secret'],
                 callbackURL: module.parent.require('nconf').get('url') + '/auth/weibo/callback'
             }, function(token, tokenSecret, profile, done) {
-                console.log(profile);
+                console.log(token, tokenSecret, profile, done);
                 var email = ''
                 if(profile.emails && profile.emails.length){
                     email = profile.emails[0].value
@@ -47,11 +48,11 @@
                 name: 'weibo',
                 url: '/auth/weibo',
                 callbackURL: '/auth/weibo/callback',
-                icon: 'weibo',
+                icon: 'fa-weibo',
                 scope: 'user:email'
             });
         }
-        
+
         callback(null, strategies);
     };
 
@@ -59,7 +60,7 @@
         if (!email) {
             email = username + '@users.noreply.weibo.com';
         }
-        
+
         Weibo.getUidByWeiboID(weiboID, function(err, uid) {
             if (err) {
                 return callback(err);
@@ -124,9 +125,11 @@
         res.render('sso/weibo/admin', {});
     }
 
-    Weibo.init = function(app, middleware, controllers) {
+    Weibo.init = function(args,callback) {
+      var app = args.router, middleware = args.middleware, controllers = args.controllers;
         app.get('/admin/weibo', middleware.admin.buildHeader, renderAdmin);
         app.get('/api/admin/weibo', renderAdmin);
+        callback();
     };
 
     module.exports = Weibo;
