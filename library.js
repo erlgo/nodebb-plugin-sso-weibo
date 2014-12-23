@@ -27,7 +27,7 @@
                 clientSecret: meta.config['social:weibo:secret'],
                 callbackURL: url + '/auth/weibo/callback'
             }, function(token, tokenSecret, profile, done) {
-                console.log(token, tokenSecret, profile, done);
+                // console.log(token, tokenSecret, profile, done);
                 var email = ''
                 if(profile.emails && profile.emails.length){
                     email = profile.emails[0].value
