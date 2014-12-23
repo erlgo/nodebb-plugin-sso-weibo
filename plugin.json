@@ -13,8 +13,11 @@
         },
         {
             "hook": "static:app.load", "method": "init"
-        }
-    ],
+          },
+          {
+            "hook": "filter:user.delete", "method" : "userDelete"
+          }
+        ],
     "templates": "./templates"
 
 }

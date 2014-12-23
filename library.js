@@ -78,7 +78,8 @@
                     User.setUserField(uid, 'picture', picture);
                     User.setUserField(uid, 'gravatarpicture', picture);
                     User.setUserField(uid, 'uploadedpicture', picture);
-                    db.setObjectField('weiboid:uid', weiboID, uid);
+                    db.setObjectField('sso:weibo:id', weiboID, uid);
+                    db.setObjectField('sso:weibo:uid', uid, weiboID);
                     callback(null, {
                         uid: uid
                     });
@@ -102,7 +103,7 @@
     };
 
     Weibo.getUidByWeiboID = function(weiboID, callback) {
-        db.getObjectField('weiboid:uid', weiboID, function(err, uid) {
+        db.getObjectField('sso:weibo:id', weiboID, function(err, uid) {
             if (err) {
                 callback(err);
             } else {
@@ -110,6 +111,17 @@
             }
         });
     };
+    Weibo.userDelete = function(uid,callback){
+      db.getObjectField('sso:weibo:uid', uid, function(err, ssoid) {
+        if (err) {
+          callback();
+        } else {
+          db.deleteObjectField('sso:weibo:id',ssoid);
+          db.deleteObjectField('sso:weibo:uid',uid);
+          callback();
+        }
+      });
+    }
 
     Weibo.addMenuItem = function(custom_header, callback) {
         custom_header.authentication.push({
