@@ -21,7 +21,7 @@
 
     Weibo.getStrategy = function(strategies, callback) {
         if (meta.config['social:weibo:id'] && meta.config['social:weibo:secret']) {
-          console.log(meta.config['social:weibo:id'] , meta.config['social:weibo:secret'])
+          // console.log(meta.config['social:weibo:id'] , meta.config['social:weibo:secret'])
             passport.use(new passportWeibo({
                 clientID: meta.config['social:weibo:id'],
                 clientSecret: meta.config['social:weibo:secret'],
