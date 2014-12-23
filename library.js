@@ -21,11 +21,11 @@
 
     Weibo.getStrategy = function(strategies, callback) {
         if (meta.config['social:weibo:id'] && meta.config['social:weibo:secret']) {
-          // console.log(meta.config['social:weibo:id'] , meta.config['social:weibo:secret'])
-            passport.use(new passportWeibo({
+          var url = meta.config['social:url'] || module.parent.require('nconf').get('url');
+          passport.use(new passportWeibo({
                 clientID: meta.config['social:weibo:id'],
                 clientSecret: meta.config['social:weibo:secret'],
-                callbackURL: module.parent.require('nconf').get('url') + '/auth/weibo/callback'
+                callbackURL: url + '/auth/weibo/callback'
             }, function(token, tokenSecret, profile, done) {
                 console.log(token, tokenSecret, profile, done);
                 var email = ''

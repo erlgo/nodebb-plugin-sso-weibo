@@ -11,6 +11,7 @@
 		<br />
 		<input type="text" data-field="social:weibo:id" title="App Key" class="form-control input-lg" placeholder="App Key"><br />
 		<input type="text" data-field="social:weibo:secret" title="App Secret" class="form-control" placeholder="App Secret"><br />
+		<input type="text" data-field="social:url" title="WebSite Url" class="form-control" placeholder="WebSite Url eg:http://abc.com"><br />
 	</div>
 </form>
 
